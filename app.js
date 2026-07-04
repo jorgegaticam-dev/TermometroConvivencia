@@ -386,23 +386,31 @@ localStorage.setItem(
 
 guardarEnGoogleSheets({
 
-    fecha:
-    nuevaMedicion.fecha,
+    fecha: nuevaMedicion.fecha,
 
-    curso:
-    nuevaMedicion.curso,
+    curso: nuevaMedicion.curso,
 
-    responsable:
-    nuevaMedicion.responsable,
+    responsable: nuevaMedicion.responsable,
 
-    participantes:
-    nuevaMedicion.participantes,
+    participantes: nuevaMedicion.participantes,
 
-    promedio:
-    nuevaMedicion.promedio,
+    promedio: nuevaMedicion.promedio,
 
-    categoria:
-    nuevaMedicion.categoria
+    categoria: nuevaMedicion.categoria,
+
+    bienestar: nuevaMedicion.dimensiones.bienestar,
+
+    inclusion: nuevaMedicion.dimensiones.inclusion,
+
+    buenTrato: nuevaMedicion.dimensiones.buenTrato,
+
+    participacion: nuevaMedicion.dimensiones.participacion,
+
+    seguridad: nuevaMedicion.dimensiones.seguridad,
+
+    pertenencia: nuevaMedicion.dimensiones.pertenencia,
+
+    relaciones: nuevaMedicion.dimensiones.relaciones
 
 });
 
