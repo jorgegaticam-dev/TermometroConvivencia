@@ -1638,23 +1638,27 @@ function actualizarComparacionNiveles(){
 
     };
 
-    mediciones.forEach(m => {
+mediciones.forEach(m => {
 
-        for(const nivel in niveles){
+    const curso =
+        m.curso ?? m["Curso"];
 
-            if(
-                m.curso.startsWith(nivel)
-            ){
+    const promedio =
+        Number(m.promedio ?? m["Promedio"]);
 
-                niveles[nivel].push(
-                    Number(m.promedio)
-                );
+    if(!curso) return;
 
-            }
+    for(const nivel in niveles){
+
+        if(curso.startsWith(nivel)){
+
+            niveles[nivel].push(promedio);
 
         }
 
-    });
+    }
+
+});
 
     let html = "";
 
