@@ -2237,17 +2237,13 @@ async function guardarEnGoogleSheets(datos){
 
         console.log("Enviando a Google Sheets:", datos);
 
-        const respuesta = await fetch(URL_GOOGLE_SHEETS,{
+const respuesta = await fetch(URL_GOOGLE_SHEETS, {
 
-            method:"POST",
+    method: "POST",
 
-            headers:{
-                "Content-Type":"application/json"
-            },
+    body: JSON.stringify(datos)
 
-            body:JSON.stringify(datos)
-
-        });
+});
 
         const texto = await respuesta.text();
 
