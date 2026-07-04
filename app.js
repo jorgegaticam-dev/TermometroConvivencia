@@ -1777,24 +1777,24 @@ function actualizarGraficoInstitucional(){
     let sumaPertenencia = 0;
     let sumaRelaciones = 0;
 
-    mediciones.forEach(m => {
+mediciones.forEach(m => {
 
-        sumaBuenTrato +=
-        Number(m.dimensiones.buenTrato);
+    sumaBuenTrato +=
+    Number(m["Buen Trato"] ?? m.dimensiones?.buenTrato ?? 0);
 
-        sumaParticipacion +=
-        Number(m.dimensiones.participacion);
+    sumaParticipacion +=
+    Number(m["Participación"] ?? m.dimensiones?.participacion ?? 0);
 
-        sumaSeguridad +=
-        Number(m.dimensiones.seguridad);
+    sumaSeguridad +=
+    Number(m["Seguridad"] ?? m.dimensiones?.seguridad ?? 0);
 
-        sumaPertenencia +=
-        Number(m.dimensiones.pertenencia);
+    sumaPertenencia +=
+    Number(m["Pertenencia"] ?? m.dimensiones?.pertenencia ?? 0);
 
-        sumaRelaciones +=
-        Number(m.dimensiones.relaciones);
+    sumaRelaciones +=
+    Number(m["Relaciones"] ?? m.dimensiones?.relaciones ?? 0);
 
-    });
+});
 
     const total =
     mediciones.length;
