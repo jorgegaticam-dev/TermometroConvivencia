@@ -33,3 +33,28 @@ async function guardarEnGoogleSheets(datos){
     }
 
 }
+
+// ======================================
+// LEER MEDICIONES DESDE GOOGLE SHEETS
+// ======================================
+
+async function cargarDesdeGoogleSheets(){
+
+    try{
+
+        const respuesta = await fetch(URL_GOOGLE_SHEETS);
+
+        mediciones = await respuesta.json();
+
+        console.log("Mediciones cargadas:", mediciones);
+
+    }
+
+    catch(error){
+
+        console.error("Error al leer Google Sheets:", error);
+
+    }
+
+}
+

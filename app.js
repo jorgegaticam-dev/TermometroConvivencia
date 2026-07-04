@@ -62,7 +62,7 @@ document.getElementById("limpiarFiltros");
 // Guardado de infromacion
 // ======================================
 
-let mediciones =
+let mediciones = [];
 JSON.parse(localStorage.getItem("TCE_RESULTADOS")) || [];
 
 // ======================================
@@ -2006,29 +2006,29 @@ scales: {
 // CARGA INICIAL
 // ======================================
 
-actualizarDashboard();
+async function iniciarAplicacion(){
 
-actualizarRankingInstitucional();
+    await cargarDesdeGoogleSheets();
 
-actualizarComparacionNiveles();
+    actualizarDashboard();
 
-cargarCursosEvolucion();
+    actualizarRankingInstitucional();
 
-cargarCursosSeguimiento();
+    actualizarComparacionNiveles();
 
-cargarCursosFiltro();
+    cargarCursosEvolucion();
 
-cargarAniosFiltro();
+    cargarCursosSeguimiento();
 
-cargarHistorial();
+    cargarCursosFiltro();
 
-aplicarFiltros();
+    cargarAniosFiltro();
 
-// ======================================
-// RECUPERAR ÚLTIMA MEDICIÓN
-// ======================================
+    cargarHistorial();
 
-if(mediciones.length > 0){
+    aplicarFiltros();
+
+    if(mediciones.length > 0){
 
     const ultimaMedicion =
     mediciones[mediciones.length - 1];
@@ -2046,6 +2046,16 @@ if(mediciones.length > 0){
     }
 
 }
+
+}
+
+iniciarAplicacion();
+
+// ======================================
+// RECUPERAR ÚLTIMA MEDICIÓN
+// ======================================
+
+
 
 // ======================================
 // TABLA MASIVA DE ESTUDIANTES
