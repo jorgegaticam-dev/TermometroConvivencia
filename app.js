@@ -66,7 +66,7 @@ let mediciones =
 JSON.parse(localStorage.getItem("TCE_RESULTADOS")) || [];
 
 const URL_GOOGLE_SHEETS =
-"https://script.google.com/macros/s/AKfycbzwu8P5ssJ33KPhimEcFBcXxu_wbReNEDzgcIi5BFNKesvPP-9fDJS4RvgmycdYqfh8Pg/exec";
+"https://script.google.com/macros/s/AKfycbzixuAqFDRXVHMzV5rm1WKdOGP2I8gTiCjlPBJ84KoSGTLgxh4tbCTxNFPj2JJyISWbgw/exec";
 
 // ======================================
 // FORMATEAR FECHA
