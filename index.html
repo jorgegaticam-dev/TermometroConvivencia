@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termómetro de la Convivencia Educativa</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+</head>
+<body>
+
+   <div class="layout">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <h2>LBA</h2>
+
+            <span>
+                Sistema de Monitoreo
+                de Convivencia Escolar
+            </span>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <button
+                class="tab-btn active"
+                onclick="mostrarSeccion('dashboard')">
+
+                <strong>📊 Dashboard</strong>
+                <small>Resumen institucional</small>
+
+            </button>
+
+            <button
+                class="tab-btn"
+                onclick="mostrarSeccion('aplicacion')">
+
+                <strong>📝 Aplicación</strong>
+                <small>Nueva medición</small>
+
+            </button>
+
+            <button
+                class="tab-btn"
+                onclick="mostrarSeccion('seguimiento')">
+
+                <strong>📈 Seguimiento</strong>
+                <small>Análisis de cursos</small>
+
+            </button>
+
+            <button
+                class="tab-btn"
+                onclick="mostrarSeccion('historial')">
+
+                <strong>📚 Historial</strong>
+                <small>Mediciones previas</small>
+
+            </button>
+
+        </nav>
+
+    </aside>
+
+    <div class="contenido-principal">
+
+        <header class="topbar">
+
+            <h1>
+                Sistema de Monitoreo de
+                Convivencia Escolar
+            </h1>
+
+            <p>
+                Liceo Bicentenario Los Ángeles
+            </p>
+
+        </header>
+
+        <main>
+
+<div id="dashboard" class="seccion">
+
+ <section class="card">
+
+            <h2>Resumen Institucional</h2>
+
+            <div class="kpi-container">
+
+<div class="kpi promedio">
+
+    <span class="kpi-icon">📊</span>
+
+    <h3>Promedio Institucional</h3>
+
+    <p id="promedioInstitucional">0.0</p>
+
+    <small>Estado general de convivencia</small>
+
+</div>
+
+<div class="kpi cursos">
+
+    <span class="kpi-icon">🏫</span>
+
+    <h3>Cursos Evaluados</h3>
+
+    <p id="cursosEvaluados">0</p>
+
+    <small>Cobertura actual</small>
+
+</div>
+
+<div class="kpi alertas">
+
+    <span class="kpi-icon">🚨</span>
+
+    <h3>Alertas</h3>
+
+    <p id="alertas">0</p>
+
+    <small>Requieren seguimiento</small>
+
+</div>
+
+            </div>
+
+        </section>
+
+ <section class="card">
+
+            <h2>🏆 Panel Institucional</h2>
+
+            <div id="rankingCursos">
+
+        Sin información disponible.
+
+           </div>
+
+        </section>
+
+ <section class="card">
+
+          <h2>📊 Comparación por Nivel</h2>
+
+          <div id="comparacionNiveles">
+
+        Sin información disponible.
+
+         </div>
+
+       </section>
+
+<section class="card">
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>📊 Gráfico Institucional</h2>
+
+            <p>
+                Promedio de las dimensiones
+                evaluadas en convivencia escolar
+            </p>
+
+        </div>
+
+        <span class="badge-dashboard">
+            Escala 1–5
+        </span>
+
+    </div>
+
+    <canvas id="graficoInstitucional"></canvas>
+
+</section>
+
+</div>
+
+<div id="aplicacion" class="seccion oculto">
+
+<section class="card card-aplicacion">
+
+    <div class="aplicacion-header">
+
+        <div>
+
+            <h2>📝 Nueva Aplicación</h2>
+
+            <p>
+
+                Complete la información para registrar una nueva medición institucional.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <hr class="linea-aplicacion">
+
+    <div class="aplicacion-grid">
+
+        <div class="campo">
+
+            <label>📚 Curso</label>
+
+            <select id="curso">
+
+                <option>7° Básico A</option>
+                <option>7° Básico B</option>
+                <option>7° Básico C</option>
+                <option>7° Básico D</option>
+                <option>7° Básico E</option>
+
+                <option>8° Básico A</option>
+                <option>8° Básico B</option>
+                <option>8° Básico C</option>
+                <option>8° Básico D</option>
+                <option>8° Básico E</option>
+                <option>8° Básico F</option>
+
+                <option>1° Medio A</option>
+                <option>1° Medio B</option>
+                <option>1° Medio C</option>
+                <option>1° Medio D</option>
+                <option>1° Medio E</option>
+                <option>1° Medio F</option>
+
+                <option>2° Medio A</option>
+                <option>2° Medio B</option>
+                <option>2° Medio C</option>
+                <option>2° Medio D</option>
+                <option>2° Medio E</option>
+                <option>2° Medio F</option>
+
+                <option>3° Medio A</option>
+                <option>3° Medio B</option>
+                <option>3° Medio C</option>
+                <option>3° Medio D</option>
+                <option>3° Medio E</option>
+                <option>3° Medio F</option>
+
+                <option>4° Medio A</option>
+                <option>4° Medio B</option>
+                <option>4° Medio C</option>
+                <option>4° Medio D</option>
+                <option>4° Medio E</option>
+                <option>4° Medio F</option>
+
+            </select>
+
+        </div>
+
+        <div class="campo">
+
+            <label>👤 Responsable</label>
+
+            <input
+                type="text"
+                id="responsable"
+                placeholder="Ej.: María González">
+
+        </div>
+
+        <div class="campo">
+
+            <label>👥 Cantidad de estudiantes</label>
+
+            <input
+                type="number"
+                id="participantes"
+                placeholder="Ej.: 35">
+
+        </div>
+
+        <div class="campo">
+
+            <label>📥 Ingreso Masivo</label>
+
+            <button
+                id="crearTablaBtn"
+                type="button">
+
+                📥 Generar Tabla
+
+            </button>
+
+        </div>
+
+        <div class="campo guardar">
+
+            <button id="guardarBtn">
+
+                💾 Guardar Medición
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="contenedorTabla"></div>
+
+</section>
+
+<section class="card">
+
+           <h2>🌡️ Termómetro de Convivencia</h2>
+
+<div class="termometro-layout">
+
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="termometro-izquierda">
+
+        <div class="escala">
+
+            <span class="verde">🟢 Fortalecida</span>
+            <span class="amarillo">🟡 Desarrollo</span>
+            <span class="naranja">🟠 Alerta</span>
+            <span class="rojo">🔴 Crítica</span>
+
+        </div>
+
+        <div id="termometro">
+
+            <div id="nivel"></div>
+
+        </div>
+
+    </div>
+
+    <!-- COLUMNA CENTRAL -->
+    <div class="termometro-centro">
+
+        <div class="resultado-promedio">
+
+            <h4>Promedio Obtenido</h4>
+
+            <p id="promedioTermometro">
+
+                0.00
+
+            </p>
+
+        </div>
+
+        <h3 id="resultadoCategoria">
+
+            Sin evaluación
+
+        </h3>
+
+    </div>
+
+    <!-- COLUMNA DERECHA -->
+    <div class="termometro-derecha">
+
+        <div id="interpretacion">
+
+            Sin interpretación disponible.
+
+        </div>
+
+        <div id="recomendacion">
+
+            Sin recomendaciones disponibles.
+
+        </div>
+
+        <div id="alertaDimensiones">
+
+            Sin diagnóstico disponible.
+
+        </div>
+
+        <div id="indiceRiesgo">
+
+            Sin evaluación de riesgo.
+
+        </div>
+
+    </div>
+
+</div>
+
+        </section>
+
+<section class="card">
+
+    <h2>Resultados por Dimensión</h2>
+
+    <table id="tablaDimensiones">
+
+        <thead>
+            <tr>
+                <th>Dimensión</th>
+                <th>Promedio</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Bienestar</td>
+                <td id="resBienestar">-</td>
+            </tr>
+
+            <tr>
+                <td>Inclusión</td>
+                <td id="resInclusion">-</td>
+            </tr>
+
+            <tr>
+                <td>Buen Trato</td>
+                <td id="resBuenTrato">-</td>
+            </tr>
+
+            <tr>
+                <td>Participación</td>
+                <td id="resParticipacion">-</td>
+            </tr>
+
+            <tr>
+                <td>Seguridad</td>
+                <td id="resSeguridad">-</td>
+            </tr>
+
+            <tr>
+                <td>Pertenencia</td>
+                <td id="resPertenencia">-</td>
+            </tr>
+
+            <tr>
+                <td>Relaciones</td>
+                <td id="resRelaciones">-</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</section>
+
+</div>
+
+<div id="seguimiento" class="seccion oculto">
+
+    <div class="titulo-seccion">
+
+    <div>
+
+        <h2>📈 Ficha Integral de Curso</h2>
+
+        <p>
+            Visualiza el diagnóstico integral y el perfil de convivencia del curso.
+        </p>
+
+    </div>
+
+</div>
+
+<label class="label-moderno">
+    Seleccionar curso
+</label>
+
+<select id="cursoSeguimiento" class="select-moderno">
+
+    <option value="">
+        Seleccione un curso
+    </option>
+
+</select>
+
+        <br><br>
+
+<div id="fichaCurso" class="estado-vacio">
+
+    <div class="estado-icono">
+
+        📊
+
+    </div>
+
+    <h3>
+
+        Aún no hay información para mostrar
+
+    </h3>
+
+    <p>
+
+        Seleccione un curso para visualizar la ficha integral y sus indicadores de convivencia.
+
+    </p>
+
+</div>
+
+<section class="card">
+
+    <div class="titulo-seccion">
+
+        <div>
+
+            <h2>📊 Perfil de Convivencia del Curso</h2>
+
+            <p>
+                Visualización del desempeño del curso en las principales dimensiones de convivencia escolar.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="contenedor-radar">
+
+        <canvas id="radarSeguimiento"></canvas>
+
+    </div>
+
+</section>
+
+    </section>
+
+<section class="card">
+
+<div class="titulo-seccion">
+
+    <div>
+
+        <h2>📈 Evolución Histórica por Curso</h2>
+
+        <p>
+            Analiza el comportamiento del curso a través de las distintas mediciones realizadas.
+        </p>
+
+    </div>
+
+</div>
+
+<label class="label-moderno">
+    Seleccionar curso
+</label>
+
+<select id="cursoEvolucion" class="select-moderno">
+
+    <option value="">
+        Seleccione un curso
+    </option>
+
+</select>
+
+    <br><br>
+
+<div id="evolucionCurso" class="estado-vacio">
+
+    <div class="estado-icono">
+
+        📈
+
+    </div>
+
+    <h3>
+
+        Aún no hay datos para mostrar
+
+    </h3>
+
+    <p>
+
+        Seleccione un curso para visualizar la evolución histórica de las mediciones.
+
+    </p>
+
+</div>
+
+<div class="contenedor-grafico">
+
+    <canvas id="graficoEvolucion"></canvas>
+
+</div>
+
+</section>
+
+</div>
+
+<div id="historial" class="seccion oculto">
+
+<section class="card">
+
+    <h2>Filtros del Historial</h2>
+
+    <div class="filtros">
+
+        <input
+            type="text"
+            id="buscarCurso"
+            placeholder="Buscar curso..."
+        >
+
+        <select id="filtroNivel">
+
+            <option value="">
+                Todos los niveles
+            </option>
+
+            <option>7° Básico</option>
+            <option>8° Básico</option>
+
+            <option>1° Medio</option>
+            <option>2° Medio</option>
+            <option>3° Medio</option>
+            <option>4° Medio</option>
+
+        </select>
+
+        <select id="filtroCurso">
+
+            <option value="">
+                Todos los cursos
+            </option>
+
+        </select>
+
+        <select id="filtroMes">
+
+            <option value="">
+                Todos los meses
+            </option>
+
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+
+        </select>
+
+<select id="filtroAnio">
+
+    <option value="">
+        Todos los años
+    </option>
+
+</select>
+
+        <input
+            type="date"
+            id="filtroFecha"
+        >
+
+      <select id="filtroCategoria">
+
+            <option value="">
+                Todas las categorías
+            </option>
+
+            <option>
+                🟢 Convivencia Fortalecida
+            </option>
+
+            <option>
+                🟡 Convivencia en Desarrollo
+            </option>
+
+            <option>
+                🟠 Convivencia en Alerta
+            </option>
+
+            <option>
+                🔴 Convivencia Crítica
+            </option>
+
+        </select>
+
+        <button id="limpiarFiltros">
+
+            Limpiar Filtros
+
+        </button>
+
+    </div>
+
+</section>
+
+<section class="card">
+
+    <h2>Historial de Mediciones</h2>
+
+<div id="contadorResultados">
+
+    Mostrando 0 mediciones
+
+</div>
+
+    <table id="tablaHistorial">
+
+        <thead>
+
+            <tr>
+                <th>Fecha</th>
+                <th>Curso</th>
+                <th>Responsable</th>
+                <th>Participantes</th>
+                <th>Promedio</th>
+                <th>Categoría</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="historialBody">
+
+        </tbody>
+
+    </table>
+
+</section>
+
+</div>
+
+    </main>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>
