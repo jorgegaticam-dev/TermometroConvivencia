@@ -139,16 +139,34 @@ function cargarCursosFiltro(){
 
 function cargarAniosFiltro(){
 
-    const aniosUnicos =
-    [...new Set(
+    const aniosUnicos = [
 
-        mediciones.map(m =>
+        ...new Set(
 
-            m.fecha.split("-")[2]
+            mediciones.map(m => {
+
+                const fecha =
+                    m.fecha ?? m["Fecha"];
+
+                if(!fecha) return null;
+
+                // Si viene como 04-07-2026
+                if(fecha.includes("-")){
+                    return fecha.split("-")[2];
+                }
+
+                // Si viene como 04/07/2026
+                if(fecha.includes("/")){
+                    return fecha.split("/")[2];
+                }
+
+                return null;
+
+            }).filter(Boolean)
 
         )
 
-    )];
+    ];
 
     filtroAnio.innerHTML = `
         <option value="">
@@ -157,16 +175,16 @@ function cargarAniosFiltro(){
     `;
 
     aniosUnicos
-    .sort()
-    .forEach(anio => {
+        .sort()
+        .forEach(anio => {
 
-        filtroAnio.innerHTML += `
-            <option value="${anio}">
-                ${anio}
-            </option>
-        `;
+            filtroAnio.innerHTML += `
+                <option value="${anio}">
+                    ${anio}
+                </option>
+            `;
 
-    });
+        });
 
 }
 
