@@ -44,7 +44,43 @@ async function cargarDesdeGoogleSheets(){
 
         const respuesta = await fetch(URL_GOOGLE_SHEETS);
 
-        mediciones = await respuesta.json();
+        const datos = await respuesta.json();
+
+        mediciones = datos.map(m => ({
+
+            id: m["ID"],
+
+            fecha: m["Fecha"],
+
+            curso: m["Curso"],
+
+            responsable: m["Responsable"],
+
+            participantes: Number(m["Participantes"]),
+
+            promedio: Number(m["Promedio"]),
+
+            categoria: m["Categoría"],
+
+            dimensiones:{
+
+                bienestar: Number(m["Bienestar"]),
+
+                inclusion: Number(m["Inclusión"]),
+
+                buenTrato: Number(m["Buen Trato"]),
+
+                participacion: Number(m["Participación"]),
+
+                seguridad: Number(m["Seguridad"]),
+
+                pertenencia: Number(m["Pertenencia"]),
+
+                relaciones: Number(m["Relaciones"])
+
+            }
+
+        }));
 
         console.log("Mediciones cargadas:", mediciones);
 
@@ -57,4 +93,3 @@ async function cargarDesdeGoogleSheets(){
     }
 
 }
-
