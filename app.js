@@ -145,22 +145,11 @@ function cargarAniosFiltro(){
 
             mediciones.map(m => {
 
-                const fecha =
-                    m.fecha ?? m["Fecha"];
+                const fecha = m.fecha ?? m["Fecha"];
 
                 if(!fecha) return null;
 
-                // Si viene como 04-07-2026
-                if(fecha.includes("-")){
-                    return fecha.split("-")[2];
-                }
-
-                // Si viene como 04/07/2026
-                if(fecha.includes("/")){
-                    return fecha.split("/")[2];
-                }
-
-                return null;
+                return new Date(fecha).getFullYear();
 
             }).filter(Boolean)
 
