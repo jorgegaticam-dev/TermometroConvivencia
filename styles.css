@@ -3,6 +3,20 @@
     Hoja de estilos principal
 =====================================================*/
 
+.logo{
+    text-align:center;
+    padding:18px 0 12px 0;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    margin-bottom:20px;
+}
+
+.logo img{
+    width:70px;
+    height:auto;
+    display:block;
+    margin:0 auto;
+}
+
 /*=====================================================
     01. VARIABLES
 =====================================================*/
