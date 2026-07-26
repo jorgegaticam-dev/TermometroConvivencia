@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termómetro de la Convivencia Educativa</title>
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -20,7 +22,7 @@
 
         <div class="sidebar-logo">
 
-            <img src="imageslogo.jpg" alt="Liceo Bicentenario Los Ángeles">
+            <img src="img/imageslogo.jpg" alt="Liceo Bicentenario Los Ángeles">
 
         </div>
 
@@ -46,6 +48,15 @@
 
             <button
                 class="tab-btn"
+                onclick="mostrarSeccion('encuesta')">
+
+                <strong>📱 Encuesta Estudiantil</strong>
+                <small>Responder encuesta</small>
+
+            </button>
+
+            <button
+                class="tab-btn"
                 onclick="mostrarSeccion('seguimiento')">
 
                 <strong>📈 Seguimiento</strong>
@@ -66,7 +77,7 @@
 
     </aside>
 
-    <div class="contenido-principal">
+<div class="contenido-principal">
 
         <header class="topbar">
 
@@ -449,143 +460,446 @@
 
 </div>
 
-<div id="seguimiento" class="seccion oculto">
+<div id="encuesta" class="seccion oculto">
 
-    <div class="titulo-seccion">
+    <section class="card card-aplicacion">
 
-    <div>
+        <div class="aplicacion-header">
 
-        <h2>📈 Ficha Integral de Curso</h2>
+            <div>
 
-        <p>
-            Visualiza el diagnóstico integral y el perfil de convivencia del curso.
-        </p>
+                <h2>📱 Encuesta Estudiantil</h2>
 
-    </div>
+                <p>
 
-</div>
+                    Cree una encuesta para que los estudiantes respondan desde sus dispositivos móviles.
 
-<label class="label-moderno">
-    Seleccionar curso
-</label>
+                </p>
 
-<select id="cursoSeguimiento" class="select-moderno">
+            </div>
 
-    <option value="">
-        Seleccione un curso
-    </option>
+        </div>
 
-</select>
+        <hr class="linea-aplicacion">
 
-        <br><br>
+        <div class="aplicacion-grid">
 
-<div id="fichaCurso" class="estado-vacio">
+            <div class="campo">
 
-    <div class="estado-icono">
+                <label>📚 Curso</label>
 
-        📊
+            <select id="cursoEncuesta">
 
-    </div>
+                <option>7° Básico A</option>
+                <option>7° Básico B</option>
+                <option>7° Básico C</option>
+                <option>7° Básico D</option>
+                <option>7° Básico E</option>
 
-    <h3>
+                <option>8° Básico A</option>
+                <option>8° Básico B</option>
+                <option>8° Básico C</option>
+                <option>8° Básico D</option>
+                <option>8° Básico E</option>
+                <option>8° Básico F</option>
 
-        Aún no hay información para mostrar
+                <option>1° Medio A</option>
+                <option>1° Medio B</option>
+                <option>1° Medio C</option>
+                <option>1° Medio D</option>
+                <option>1° Medio E</option>
+                <option>1° Medio F</option>
 
-    </h3>
+                <option>2° Medio A</option>
+                <option>2° Medio B</option>
+                <option>2° Medio C</option>
+                <option>2° Medio D</option>
+                <option>2° Medio E</option>
+                <option>2° Medio F</option>
+
+                <option>3° Medio A</option>
+                <option>3° Medio B</option>
+                <option>3° Medio C</option>
+                <option>3° Medio D</option>
+                <option>3° Medio E</option>
+                <option>3° Medio F</option>
+
+                <option>4° Medio A</option>
+                <option>4° Medio B</option>
+                <option>4° Medio C</option>
+                <option>4° Medio D</option>
+                <option>4° Medio E</option>
+                <option>4° Medio F</option>
+
+            </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label>👤 Responsable</label>
+
+                <input
+                    type="text"
+                    id="responsableEncuesta"
+                    placeholder="Ej.: Encargado de convivencia">
+
+            </div>
+
+            <div class="campo">
+
+                <label>👥 Estudiantes esperados</label>
+
+                <input
+                    type="number"
+                    id="cantidadEncuesta"
+                    placeholder="Ej.: 35">
+
+            </div>
+
+            <div class="campo guardar">
+
+                <button id="crearEncuestaBtn">
+
+                    📋 Crear Encuesta
+
+                </button>
+
+            </div>
+
+        </div>
+
+<div id="resultadoEncuesta" class="resultado-encuesta">
 
     <p>
 
-        Seleccione un curso para visualizar la ficha integral y sus indicadores de convivencia.
+        Aquí aparecerá el enlace para los estudiantes.
 
     </p>
 
 </div>
 
-<section class="card">
+<div id="estadoEncuesta" class="resultado-encuesta oculto">
+
+            <h3>📊 Estado de la encuesta</h3>
+
+            <p>
+                <strong>Respuestas recibidas:</strong>
+                <span id="contadorRespuestas">0</span>
+            </p>
+
+            <p>
+                <strong>Participantes esperados:</strong>
+                <span id="participantesEsperados">0</span>
+            </p>
+
+            <p>
+                <strong>Avance:</strong>
+                <span id="porcentajeEncuesta">0%</span>
+            </p>
+
+            <button id="procesarEncuestaBtn">
+
+                📊 Generar resultados automáticos
+
+            </button>
+
+            <button id="cerrarEncuestaBtn">
+
+                🔒 Finalizar encuesta
+
+            </button>
+
+        </div>
+
+    <div id="resultadoProcesamiento">
+
+        <section class="card">
+
+            <h2>🌡️ Resultados de la Encuesta</h2>
+
+            <div class="termometro-layout">
+
+                <!-- IZQUIERDA -->
+                <div class="termometro-izquierda">
+
+                    <div class="escala">
+
+                        <span class="verde">🟢 Fortalecida</span>
+                        <span class="amarillo">🟡 Desarrollo</span>
+                        <span class="naranja">🟠 Alerta</span>
+                        <span class="rojo">🔴 Crítica</span>
+
+                    </div>
+
+                    <div id="termometroEncuesta">
+
+                        <div id="nivelEncuesta"></div>
+
+                    </div>
+
+                </div>
+
+                <!-- CENTRO -->
+                <div class="termometro-centro">
+
+                    <div class="resultado-promedio">
+
+                        <h4>Promedio Obtenido</h4>
+
+                        <p id="promedioTermometroEncuesta">
+
+                            0.00
+
+                        </p>
+
+                    </div>
+
+                    <h3 id="resultadoCategoriaEncuesta">
+
+                        Sin evaluación
+
+                    </h3>
+
+                </div>
+
+                <!-- DERECHA -->
+                <div class="termometro-derecha">
+
+                    <div id="interpretacionEncuesta">
+
+                        Sin interpretación disponible.
+
+                    </div>
+
+                    <div id="recomendacionEncuesta">
+
+                        Sin recomendaciones disponibles.
+
+                    </div>
+
+                    <div id="alertaDimensionesEncuesta">
+
+                        Sin diagnóstico disponible.
+
+                    </div>
+
+                    <div id="indiceRiesgoEncuesta">
+
+                        Sin evaluación de riesgo.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    <section class="card">
+
+        <h2>📊 Resultados por Dimensión</h2>
+
+        <table id="tablaDimensionesEncuesta">
+
+            <thead>
+
+                <tr>
+
+                    <th>Dimensión</th>
+                    <th>Promedio</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>Bienestar</td>
+
+                    <td id="resBienestarEncuesta">-</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Inclusión</td>
+
+                    <td id="resInclusionEncuesta">-</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Buen Trato</td>
+
+                    <td id="resBuenTratoEncuesta">-</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Participación</td>
+
+                    <td id="resParticipacionEncuesta">-</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Seguridad</td>
+
+                    <td id="resSeguridadEncuesta">-</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Pertenencia</td>
+
+                    <td id="resPertenenciaEncuesta">-</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Relaciones</td>
+
+                    <td id="resRelacionesEncuesta">-</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</div>
+
+    </section>
+
+</div>
+
+<div id="seguimiento" class="seccion oculto">
 
     <div class="titulo-seccion">
 
         <div>
 
-            <h2>📊 Perfil de Convivencia del Curso</h2>
+            <h2>📈 Ficha Integral de Curso</h2>
 
             <p>
-                Visualización del desempeño del curso en las principales dimensiones de convivencia escolar.
+                Visualiza el diagnóstico integral y el perfil de convivencia del curso.
             </p>
 
         </div>
 
     </div>
 
-    <div class="contenedor-radar">
+    <label class="label-moderno">
+        Seleccionar curso
+    </label>
 
-        <canvas id="radarSeguimiento"></canvas>
+    <select id="cursoSeguimiento" class="select-moderno">
 
-    </div>
+        <option value="">
+            Seleccione un curso
+        </option>
 
-</section>
+    </select>
 
-    </section>
+    <br><br>
 
-<section class="card">
+    <div id="fichaCurso" class="estado-vacio">
 
-<div class="titulo-seccion">
+        <div class="estado-icono">
+            📊
+        </div>
 
-    <div>
-
-        <h2>📈 Evolución Histórica por Curso</h2>
+        <h3>Aún no hay información para mostrar</h3>
 
         <p>
-            Analiza el comportamiento del curso a través de las distintas mediciones realizadas.
+            Seleccione un curso para visualizar la ficha integral.
         </p>
 
     </div>
 
-</div>
+    <section class="card">
 
-<label class="label-moderno">
-    Seleccionar curso
-</label>
+        <div class="titulo-seccion">
 
-<select id="cursoEvolucion" class="select-moderno">
+            <div>
 
-    <option value="">
-        Seleccione un curso
-    </option>
+                <h2>📊 Perfil de Convivencia del Curso</h2>
 
-</select>
+                <p>
+                    Visualización del desempeño del curso.
+                </p>
 
-    <br><br>
+            </div>
 
-<div id="evolucionCurso" class="estado-vacio">
+        </div>
 
-    <div class="estado-icono">
+        <div class="contenedor-radar">
 
-        📈
+            <canvas id="radarSeguimiento"></canvas>
 
-    </div>
+        </div>
 
-    <h3>
+    </section>
 
-        Aún no hay datos para mostrar
+    <section class="card">
 
-    </h3>
+        <div class="titulo-seccion">
 
-    <p>
+            <div>
 
-        Seleccione un curso para visualizar la evolución histórica de las mediciones.
+                <h2>📈 Evolución Histórica por Curso</h2>
 
-    </p>
+                <p>
+                    Analiza el comportamiento del curso.
+                </p>
 
-</div>
+            </div>
 
-<div class="contenedor-grafico">
+        </div>
 
-    <canvas id="graficoEvolucion"></canvas>
+        <label class="label-moderno">
+            Seleccionar curso
+        </label>
 
-</div>
+        <select id="cursoEvolucion" class="select-moderno">
 
-</section>
+            <option value="">
+                Seleccione un curso
+            </option>
+
+        </select>
+
+        <div id="evolucionCurso" class="estado-vacio">
+
+            <div class="estado-icono">
+                📈
+            </div>
+
+            <h3>Aún no hay datos para mostrar</h3>
+
+            <p>
+                Seleccione un curso para visualizar la evolución histórica.
+            </p>
+
+        </div>
+
+        <div class="contenedor-grafico">
+
+            <canvas id="graficoEvolucion"></canvas>
+
+        </div>
+
+    </section>
 
 </div>
 
@@ -730,6 +1044,202 @@
 
 </div>
 
+<div id="pantallaEncuesta" class="oculto">
+
+    <section class="card card-aplicacion">
+
+        <div class="encuesta-header">
+
+    <h2>📱 Encuesta de Convivencia Escolar 📱 </h2>
+
+    <p>
+
+        Tu opinión es muy importante para mejorar la convivencia en el establecimiento.
+
+    </p>
+
+</div>
+
+        <div id="datosEncuesta"></div>
+
+<div class="instrucciones-encuesta">
+
+    <p>
+
+        Esta encuesta tiene como propósito conocer cómo percibes la convivencia
+        en tu curso. No existen respuestas correctas o incorrectas.
+
+    </p>
+
+    <p>
+
+        Lee cada afirmación y selecciona la alternativa que mejor represente
+        tu opinión.
+
+    </p>
+
+    <div class="escala-respuestas">
+
+        <strong>Escala de respuesta:</strong>
+
+        <ul>
+
+            <li>1 = Muy en desacuerdo</li>
+
+            <li>2 = En desacuerdo</li>
+
+            <li>3 = Neutral</li>
+
+            <li>4 = De acuerdo</li>
+
+            <li>5 = Muy de acuerdo</li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+        <p>
+
+            Responde las siguientes preguntas marcando una opción entre 1 y 5.
+
+        </p>
+
+<table id="tablaEncuestaEstudiante">
+
+    <thead>
+
+        <tr>
+
+            <th>Dimensión</th>
+            <th>Pregunta</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        <tr data-dimension="bienestar">
+
+            <td><strong>Bienestar</strong></td>
+
+            <td>Me siento cómodo asistiendo al establecimiento.</td>
+
+            <td><input type="radio" name="bienestar" value="1"></td>
+            <td><input type="radio" name="bienestar" value="2"></td>
+            <td><input type="radio" name="bienestar" value="3"></td>
+            <td><input type="radio" name="bienestar" value="4"></td>
+            <td><input type="radio" name="bienestar" value="5"></td>
+
+        </tr>
+
+        <tr data-dimension="inclusion">
+
+            <td><strong>Inclusión</strong></td>
+
+            <td>Me siento incluido en mi curso.</td>
+
+            <td><input type="radio" name="inclusion" value="1"></td>
+            <td><input type="radio" name="inclusion" value="2"></td>
+            <td><input type="radio" name="inclusion" value="3"></td>
+            <td><input type="radio" name="inclusion" value="4"></td>
+            <td><input type="radio" name="inclusion" value="5"></td>
+
+        </tr>
+
+        <tr data-dimension="buenTrato">
+
+            <td><strong>Buen trato</strong></td>
+
+            <td>Mis compañeros me tratan con respeto.</td>
+
+            <td><input type="radio" name="buenTrato" value="1"></td>
+            <td><input type="radio" name="buenTrato" value="2"></td>
+            <td><input type="radio" name="buenTrato" value="3"></td>
+            <td><input type="radio" name="buenTrato" value="4"></td>
+            <td><input type="radio" name="buenTrato" value="5"></td>
+
+        </tr>
+
+        <tr data-dimension="participacion">
+
+            <td><strong>Participación</strong></td>
+
+            <td>Puedo expresar mis opiniones libremente.</td>
+
+            <td><input type="radio" name="participacion" value="1"></td>
+            <td><input type="radio" name="participacion" value="2"></td>
+            <td><input type="radio" name="participacion" value="3"></td>
+            <td><input type="radio" name="participacion" value="4"></td>
+            <td><input type="radio" name="participacion" value="5"></td>
+
+        </tr>
+
+        <tr data-dimension="seguridad">
+
+            <td><strong>Seguridad</strong></td>
+
+            <td>Me siento seguro dentro del establecimiento.</td>
+
+            <td><input type="radio" name="seguridad" value="1"></td>
+            <td><input type="radio" name="seguridad" value="2"></td>
+            <td><input type="radio" name="seguridad" value="3"></td>
+            <td><input type="radio" name="seguridad" value="4"></td>
+            <td><input type="radio" name="seguridad" value="5"></td>
+
+        </tr>
+
+        <tr data-dimension="pertenencia">
+
+            <td><strong>Pertenencia</strong></td>
+
+            <td>Me siento parte importante de mi curso.</td>
+
+            <td><input type="radio" name="pertenencia" value="1"></td>
+            <td><input type="radio" name="pertenencia" value="2"></td>
+            <td><input type="radio" name="pertenencia" value="3"></td>
+            <td><input type="radio" name="pertenencia" value="4"></td>
+            <td><input type="radio" name="pertenencia" value="5"></td>
+
+        </tr>
+
+        <tr data-dimension="relaciones">
+
+            <td><strong>Relaciones</strong></td>
+
+            <td>Tengo buenas relaciones con mis profesores.</td>
+
+            <td><input type="radio" name="relaciones" value="1"></td>
+            <td><input type="radio" name="relaciones" value="2"></td>
+            <td><input type="radio" name="relaciones" value="3"></td>
+            <td><input type="radio" name="relaciones" value="4"></td>
+            <td><input type="radio" name="relaciones" value="5"></td>
+
+        </tr>
+
+    </tbody>
+
+</table>
+
+        <br>
+
+        <button id="enviarEncuestaBtn">
+
+            📤 Enviar respuestas
+
+        </button>
+
+    </section>
+
+</div>
+
     </main>
 
 </div>
@@ -740,8 +1250,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-<script src="googleSheets.js"></script>
-<script src="app.js"></script>
+<script src="js/googleSheets.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>
