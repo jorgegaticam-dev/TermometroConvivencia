@@ -2592,7 +2592,7 @@ document.getElementById("crearEncuestaBtn");
 const resultadoEncuesta =
 document.getElementById("resultadoEncuesta");
 
-crearEncuestaBtn.addEventListener("click", async () => {
+crearEncuestaBtn.addEventListener("click", () => {
 
     const curso =
     document.getElementById("cursoEncuesta").value;
@@ -2653,18 +2653,6 @@ crearEncuestaBtn.addEventListener("click", async () => {
         JSON.stringify(encuestas)
 
     );
-
-    await guardarEncuestaGoogle({
-
-        codigo,
-
-        curso,
-
-        responsable,
-
-        participantes
-
-    });
 
     const enlace =
 
