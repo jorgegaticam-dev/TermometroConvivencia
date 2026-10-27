@@ -1,0 +1,8 @@
+﻿# Credenciales y archivos locales (no publicar)
+Importante.txt
+Importante*.txt
+
+# Dependencias y sistema
+node_modules/
+.DS_Store
+Thumbs.db

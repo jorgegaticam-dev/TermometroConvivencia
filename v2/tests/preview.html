@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCE · Vista previa de diseño</title>
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <style>
+    .preview-banner {
+      padding: 10px 16px;
+      background: #234f3a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-banner">
+    Vista previa de diseño · datos de ejemplo · no consulta el API ni modifica Google Sheets
+  </div>
+  <div id="preview"></div>
+
+  <script type="module">
+    import { renderDashboard } from "../js/ui/dashboard.js";
+    import { average, round2, categoryKeyFromAverage } from "../js/domain/scoring.js";
+    import { levelFromCourse } from "../js/domain/courses.js";
+
+    const dimensionOrder = [
+      "bienestar",
+      "inclusion",
+      "buenTrato",
+      "participacion",
+      "seguridad",
+      "pertenencia",
+      "relaciones"
+    ];
+
+    function makeMeasurement(id, fecha, curso, responsable, participantes, scores) {
+      const dimensiones = {};
+      dimensionOrder.forEach((key, index) => {
+        dimensiones[key] = scores[index];
+      });
+
+      const promedio = round2(average(scores));
+
+      return {
+        id,
+        fecha,
+        curso,
+        nivel: levelFromCourse(curso),
+        responsable,
+        participantes,
+        promedio,
+        categoria: categoryKeyFromAverage(promedio),
+        dimensiones,
+        encuestaID: id.startsWith("surv") ? "AB12CD34" : "",
+        origen: id.startsWith("surv") ? "ENCUESTA" : "MANUAL",
+        creadoEn: `${fecha}T12:00:00.000Z`
+      };
+    }
+
+    const measurements = [
+      makeMeasurement("surv-001", "2026-09-12", "7° Básico A", "María Soto", 31, [4.2, 4.0, 3.8, 3.6, 4.1, 4.0, 4.3]),
+      makeMeasurement("surv-002", "2026-10-20", "7° Básico A", "María Soto", 33, [4.4, 4.2, 4.0, 3.8, 4.3, 4.2, 4.5]),
+      makeMeasurement("surv-003", "2026-10-18", "7° Básico B", "Carlos Rivas", 30, [3.2, 3.0, 3.1, 2.9, 3.3, 3.2, 3.4]),
+      makeMeasurement("surv-004", "2026-10-19", "8° Básico A", "Paula Muñoz", 28, [3.9, 3.7, 3.6, 3.5, 3.8, 3.7, 4.0]),
+      makeMeasurement("surv-005", "2026-10-19", "8° Básico B", "Paula Muñoz", 29, [2.8, 2.6, 2.7, 2.5, 2.9, 2.7, 3.0]),
+      makeMeasurement("surv-006", "2026-10-20", "1° Medio A", "Felipe Herrera", 34, [4.6, 4.5, 4.4, 4.3, 4.6, 4.5, 4.7]),
+      makeMeasurement("surv-007", "2026-10-21", "1° Medio B", "Felipe Herrera", 32, [3.6, 3.4, 3.5, 3.3, 3.7, 3.5, 3.8]),
+      makeMeasurement("surv-008", "2026-10-22", "2° Medio A", "Camila Torres", 30, [3.0, 2.8, 2.9, 2.7, 3.1, 2.9, 3.2])
+    ];
+
+    renderDashboard(document.getElementById("preview"), {
+      measurements,
+      loading: false,
+      error: null,
+      fromCache: false,
+      apiConfigured: true,
+      onRefresh: () => {},
+      onNavigate: () => {}
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCE · Pruebas de dominio</title>
+  <style>
+    :root {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      color: #17211b;
+      background: #f1f4f3;
+    }
+
+    body {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    header {
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      color: #234f3a;
+      font-size: 24px;
+    }
+
+    p {
+      margin: 0;
+      color: #6b7c72;
+      font-size: 14px;
+    }
+
+    .summary {
+      margin: 18px 0;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      background: #edf2ef;
+    }
+
+    .summary--ok {
+      background: #e8f7ee;
+      color: #166534;
+    }
+
+    .summary--fail {
+      background: #fdecec;
+      color: #b91c1c;
+    }
+
+    .tests {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .test {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 10px;
+      padding: 11px 14px;
+      border: 1px solid #dce5df;
+      border-radius: 10px;
+      background: #fff;
+      font-size: 13px;
+    }
+
+    .test__status {
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+    }
+
+    .test--pass .test__status {
+      color: #16a34a;
+    }
+
+    .test--fail .test__status {
+      color: #dc2626;
+    }
+
+    .test__error {
+      grid-column: 2;
+      margin: 6px 0 0;
+      padding: 8px;
+      overflow: auto;
+      border-radius: 6px;
+      background: #fdecec;
+      color: #7f1d1d;
+      font-size: 12px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pruebas de dominio · TCE v2</h1>
+    <p>Se ejecutan sin API ni Google Sheets: cálculos, validaciones y fechas.</p>
+  </header>
+
+  <div id="summary" class="summary">Ejecutando…</div>
+  <ul id="results" class="tests"></ul>
+
+  <script type="module" src="browser-tests.js"></script>
+</body>
+</html>

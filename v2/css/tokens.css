@@ -1,0 +1,65 @@
+/* ======================================
+   TOKENS · IDENTIDAD INSTITUCIONAL
+   ====================================== */
+
+:root {
+  --primary-950: #0c2118;
+  --primary-900: #123024;
+  --primary-800: #1b3f2e;
+  --primary-700: #234f3a;
+  --primary-600: #2d6649;
+  --primary-500: #3b7d5b;
+
+  --gold-700: #9a7b3f;
+  --gold-600: #b08f4e;
+  --gold-500: #c6a664;
+  --gold-200: #eadcbc;
+  --gold-100: #f7f1e1;
+
+  --bg: #f1f4f3;
+  --surface: #ffffff;
+  --surface-2: #f7f9f8;
+  --surface-3: #edf2ef;
+
+  --text: #17211b;
+  --text-soft: #48584f;
+  --muted: #6b7c72;
+  --line: #dce5df;
+  --line-strong: #c6d3cb;
+
+  --success: #16a34a;
+  --success-soft: #e8f7ee;
+  --warning: #d97706;
+  --warning-soft: #fef3e2;
+  --danger: #dc2626;
+  --danger-soft: #fdecec;
+  --info: #2563eb;
+  --info-soft: #eaf1fe;
+
+  --category-fortalecida: #22c55e;
+  --category-desarrollo: #eab308;
+  --category-alerta: #f97316;
+  --category-critica: #ef4444;
+
+  --radius-xs: 8px;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  --shadow-xs: 0 1px 2px rgba(15, 40, 28, 0.05);
+  --shadow-sm: 0 4px 14px rgba(15, 40, 28, 0.06);
+  --shadow: 0 12px 32px rgba(15, 40, 28, 0.09);
+  --shadow-lg: 0 28px 70px rgba(15, 40, 28, 0.16);
+
+  --font-sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Mono", "Consolas", "SFMono-Regular", monospace;
+
+  --sidebar-width: 276px;
+  --topbar-height: 78px;
+  --content-max: 1480px;
+
+  --transition: 180ms ease;
+  --transition-slow: 320ms ease;
+}

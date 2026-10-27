@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCE · Vista previa encuesta estudiante</title>
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <style>
+    .preview-banner {
+      padding: 10px 16px;
+      background: #234f3a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .preview-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 18px 8px;
+    }
+
+    .preview-section > h2 {
+      margin-bottom: 4px;
+      color: #234f3a;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .preview-section > p {
+      margin-bottom: 18px;
+      color: #6b7c72;
+      font-size: 12px;
+    }
+
+    .preview-frame {
+      padding: 20px 0 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-banner">
+    Vista previa del flujo estudiante · respuestas simuladas · no consulta el API real
+  </div>
+
+  <div id="preview"></div>
+
+  <script>
+    // Solo para esta vista previa: evita depender de una implementación real.
+    window.TCE_API_URL = "https://tce.test/exec";
+  </script>
+
+  <script type="module">
+    const SURVEY = {
+      id: "DEMO0001",
+      fechaCreacion: "2026-10-26T10:00:00.000Z",
+      curso: "7° Básico A",
+      nivel: "7° Básico",
+      responsable: "María Soto",
+      participantesEsperados: 32,
+      estado: "ACTIVA",
+      fechaCierre: "",
+      fechaProcesamiento: "",
+      medicionID: "",
+      respuestasRecibidas: 12
+    };
+
+    const responses = {
+      guardarRespuesta: { ok: true, duplicado: false, recibidas: 13 }
+    };
+
+    window.fetch = async (url, options = {}) => {
+      const isPost = options.method === "POST";
+      const payload = isPost ? JSON.parse(options.body) : null;
+      const target = new URL(String(url), location.href);
+      const accion = payload?.accion || target.searchParams.get("accion");
+      const codigo = String(payload?.codigo || target.searchParams.get("codigo") || "").toUpperCase();
+
+      let body;
+
+      if (accion === "obtenerEncuesta") {
+        if (codigo === "NOEXISTE") {
+          body = { ok: false, error: { code: "ENCUESTA_NO_ENCONTRADA", message: "No existe una encuesta con ese código." } };
+        } else if (codigo === "CERRADA1") {
+          body = { ok: true, encuesta: { ...SURVEY, id: "CERRADA1", estado: "CERRADA", fechaCierre: "2026-10-26T15:00:00.000Z" } };
+        } else if (codigo === "PROCES01") {
+          body = { ok: true, encuesta: { ...SURVEY, id: "PROCES01", estado: "PROCESADA", medicionID: "m-1" } };
+        } else {
+          body = { ok: true, encuesta: { ...SURVEY, id: codigo || SURVEY.id } };
+        }
+      } else if (accion === "guardarRespuesta") {
+        body = responses.guardarRespuesta;
+      } else {
+        body = { ok: false, error: { code: "ACCION_NO_RECONOCIDA", message: accion || "sin acción" } };
+      }
+
+      return new Response(JSON.stringify(body), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
+    };
+
+    const { renderStudentSurvey } = await import("../js/ui/surveyStudent.js");
+    const { renderStudentShell } = await import("../js/ui/layout.js");
+
+    const preview = document.getElementById("preview");
+
+    function section(title, note) {
+      const wrapper = document.createElement("section");
+      wrapper.className = "preview-section";
+      const heading = document.createElement("h2");
+      heading.textContent = title;
+      const caption = document.createElement("p");
+      caption.textContent = note;
+      wrapper.append(heading, caption);
+      preview.appendChild(wrapper);
+      return wrapper;
+    }
+
+    async function scenario(title, note, code, options = {}) {
+      const wrapper = section(title, note);
+      const frame = document.createElement("div");
+      frame.className = "preview-frame";
+      const host = document.createElement("div");
+      const { main } = renderStudentShell(host, { logoSrc: "../img/imageslogo.jpg" });
+      frame.appendChild(host);
+      wrapper.appendChild(frame);
+
+      try {
+        await renderStudentSurvey(main, code, { onRetry: () => {} });
+      } catch (error) {
+        main.textContent = `Error de vista previa: ${error.message}`;
+      }
+    }
+
+    await scenario(
+      "1 · Encuesta activa",
+      "Formulario completo, siete dimensiones y escala Likert.",
+      "DEMO0001"
+    );
+
+    await scenario(
+      "2 · Código inexistente",
+      "Estado cuando el enlace no corresponde a una encuesta creada.",
+      "NOEXISTE"
+    );
+
+    await scenario(
+      "3 · Encuesta cerrada",
+      "El estudiante puede ver el aviso, pero no responder.",
+      "CERRADA1"
+    );
+
+    await scenario(
+      "4 · Encuesta procesada",
+      "Los resultados ya fueron calculados y la encuesta no acepta respuestas.",
+      "PROCES01"
+    );
+
+    localStorage.setItem("TCE_RESPONDED_DEMO0002", "1");
+
+    await scenario(
+      "5 · Dispositivo ya respondió",
+      "Evita respuestas duplicadas desde el mismo navegador.",
+      "DEMO0002"
+    );
+
+    localStorage.removeItem("TCE_RESPONDED_DEMO0002");
+  </script>
+</body>
+</html>
